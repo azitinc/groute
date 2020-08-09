@@ -20,12 +20,36 @@ Or install it yourself as:
 
 ## Usage
 
-### Configure
+### 設定
+
+Google Map Directions APIを利用する場合には、Google Map APIのキーの設定が必要
 
 ```ruby
 Groute.configure do |conf|
   conf.google_map_api_key = "<YOUR GOOGLE MAP API KEY HERE>"
 end
+```
+
+### 直線距離
+
+ヒュベニの公式をつかって直線距離をメートルで計算します
+
+```ruby
+shibuya = Groute::LatLng.new(35.658034, 139.701636)
+roppoingi = Groute::LatLng.new(35.662725, 139.731216)
+Groute::StraitDistanceCalculator.call(shibuya, roppoingi)
+# => Groute::Distance(2728)
+```
+
+### Google Directions API
+
+Google Directions APIを利用して、移動距離をメートルで計算します
+
+```ruby
+shibuya = Groute::LatLng.new(35.658034, 139.701636)
+roppoingi = Groute::LatLng.new(35.662725, 139.731216)
+Groute::GoogleDirectionsDistanceCalculator.call(shibuya_latlng, roppongi_latlng)
+# => Groute::Distance(7197)
 ```
 
 ## Development
