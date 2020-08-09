@@ -52,6 +52,34 @@ Groute::GoogleDirectionsDistanceCalculator.new.distance(shibuya, roppongi)
 # => Groute::Distance(7197)
 ```
 
+### Google Distance Matrix API
+
+Google Distance Matrix API利用して、移動距離をメートルで計算します
+
+Google Distance Matrix APIを用いるこのの方法では、
+指定された出発地と目的地を周辺100mの6箇所の点と共にDistance Matrix APIにかけ、
+最短のルートの距離をかえします.
+
+#### この手法のメリット
+
+この手法は、誤って出発地及び目的地が高速道路上であると判定され、
+長大なルートが利用されてしまう危険性にたいする部分的な対処方法です。
+
+#### この手法のデメリット
+
+その一方で、Distance Matrix APIは、リクエストに指定した地点の組みあわせに比例してコストがかかるため
+コストは他の手法に対して高くなるため、利用は慎重にこれ以外の手法で要求が満せない時にのみ利用してください。
+
+また、周辺に地点を展開した事によってルートの始点または終点が道路の反対側になってしまう場合があり、
+その場合には道路を反対まで移動する分の距離が結果に反映されない等の不具合が発生する可能性があります
+
+```ruby
+shibuya = Groute::LatLng.new(35.658034, 139.701636)
+roppoingi = Groute::LatLng.new(35.662725, 139.731216)
+Groute::GoogleDistanceMatrixDistanceCalculator.new.distance(shibuya, roppongi)
+# => Groute::Distance(2653)
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

@@ -6,6 +6,8 @@ require 'groute/distance'
 require 'groute/strait_distance_calculator'
 require 'groute/google_directions_distance_calculator'
 require 'groute/google_directions_distance_calculator/api_status_not_ok_error'
+require 'groute/google_distance_matrix_distance_calculator'
+require 'groute/google_distance_matrix_distance_calculator/hexagonal_expander'
 require 'groute/config'
 
 module Groute
