@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Groute
   # 移動時間と、移動距離で表現される経路
   class Route
