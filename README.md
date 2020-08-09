@@ -60,6 +60,13 @@ Google Distance Matrix APIを用いるこのの方法では、
 指定された出発地と目的地を周辺100mの6箇所の点と共にDistance Matrix APIにかけ、
 最短のルートの距離をかえします.
 
+```ruby
+shibuya = Groute::LatLng.new(35.658034, 139.701636)
+roppoingi = Groute::LatLng.new(35.662725, 139.731216)
+Groute::GoogleDistanceMatrixDistanceCalculator.new.distance(shibuya, roppongi)
+# => Groute::Distance(2653)
+```
+
 #### この手法のメリット
 
 この手法は、誤って出発地及び目的地が高速道路上であると判定され、
@@ -72,13 +79,6 @@ Google Distance Matrix APIを用いるこのの方法では、
 
 また、周辺に地点を展開した事によってルートの始点または終点が道路の反対側になってしまう場合があり、
 その場合には道路を反対まで移動する分の距離が結果に反映されない等の不具合が発生する可能性があります
-
-```ruby
-shibuya = Groute::LatLng.new(35.658034, 139.701636)
-roppoingi = Groute::LatLng.new(35.662725, 139.731216)
-Groute::GoogleDistanceMatrixDistanceCalculator.new.distance(shibuya, roppongi)
-# => Groute::Distance(2653)
-```
 
 ## Development
 
