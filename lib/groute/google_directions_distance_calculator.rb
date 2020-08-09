@@ -57,6 +57,7 @@ module Groute
         alternative: request_alternative,
         language: language_code,
         key: google_map_api_key,
+        avoid: avoids.join("|"),
       }
       query_params = parameters.collect { |k, v| "#{k}=#{CGI.escape(v.to_s)}" }.join("&")
 
@@ -85,9 +86,9 @@ module Groute
     # - tolls 有料道路
     # - highways 高速道路
     # - ferries フェリー
-    # @return [Array<Symbol>]
+    # @return [Array<String>]
     def avoids
-      %i[tolls highways ferries]
+      %w[tolls highways ferries]
     end
 
     # Google MapのAPIキー

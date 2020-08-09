@@ -21,7 +21,7 @@ RSpec.describe Groute::GoogleDirectionsDistanceCalculator do
 
     it 'Groute::Distanceの距離をメートル単位で返す' do
       expect(Groute::GoogleDirectionsDistanceCalculator.new.distance(shibuya_latlng, roppongi_latlng)).to satisfy do |d|
-        d.distance >= 7000 && d.distance <= 8000
+        d.distance >= 2000 && d.distance <= 3000
       end
     end
 
