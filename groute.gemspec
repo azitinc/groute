@@ -29,6 +29,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   # Dependencies
-  spec.add_dependency 'google_directions'
   spec.add_dependency 'google_distance_matrix', '~> 0.2.0'
 end
