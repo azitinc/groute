@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Groute::GoogleDirectionsDistanceCalculator do
-  describe 'call' do
+  describe 'distance' do
     let!(:shibuya_latlng) { Groute::LatLng.new(35.658034, 139.701636) }
     let!(:roppongi_latlng) { Groute::LatLng.new(35.662725, 139.731216) }
 
@@ -12,15 +12,15 @@ RSpec.describe Groute::GoogleDirectionsDistanceCalculator do
     end
 
     it 'LatLngを二つ取る' do
-      expect(Groute::GoogleDirectionsDistanceCalculator.call(shibuya_latlng, roppongi_latlng)).not_to be nil
+      expect(Groute::GoogleDirectionsDistanceCalculator.new.distance(shibuya_latlng, roppongi_latlng)).not_to be nil
     end
 
     it 'Groute::Distanceのインスタンスを返す' do
-      expect(Groute::GoogleDirectionsDistanceCalculator.call(shibuya_latlng, roppongi_latlng)).to be_an_instance_of(Groute::Distance)
+      expect(Groute::GoogleDirectionsDistanceCalculator.new.distance(shibuya_latlng, roppongi_latlng)).to be_an_instance_of(Groute::Distance)
     end
 
     it 'Groute::Distanceの距離をメートル単位で返す' do
-      expect(Groute::GoogleDirectionsDistanceCalculator.call(shibuya_latlng, roppongi_latlng)).to satisfy do |d|
+      expect(Groute::GoogleDirectionsDistanceCalculator.new.distance(shibuya_latlng, roppongi_latlng)).to satisfy do |d|
         d.distance >= 7000 && d.distance <= 8000
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe Groute::GoogleDirectionsDistanceCalculator do
                                                       "status" => "NOT_FOUND",
                                                     })
         expect do
-          Groute::GoogleDirectionsDistanceCalculator.call(shibuya_latlng, roppongi_latlng)
+          Groute::GoogleDirectionsDistanceCalculator.new.distance(shibuya_latlng, roppongi_latlng)
         end.to raise_error(
           an_instance_of(
             Groute::GoogleDirectionsDistanceCalculator::ApiStatusNotOkError
@@ -48,7 +48,7 @@ RSpec.describe Groute::GoogleDirectionsDistanceCalculator do
                                                       "status" => "OK",
                                                     })
         expect do
-          Groute::GoogleDirectionsDistanceCalculator.call(shibuya_latlng, roppongi_latlng)
+          Groute::GoogleDirectionsDistanceCalculator.new.distance(shibuya_latlng, roppongi_latlng)
         end.not_to raise_error
       end
     end

@@ -12,26 +12,14 @@ module Groute
     SUCCESS_API_RESPONSE_STATUS = "OK"
     private_constant :ENDPOINT_URL_STRING, :SUCCESS_API_RESPONSE_STATUS
 
-    class << self
-      # @param [Groute::LatLng] origin
-      # @param [Groute::LatLng] destination
-      # @raise [Groute::GoogleDirectionsDistanceCalculator::ApiStatusNotOkError]
-      # @return [Groute::Distance]
-      def call(origin, destination)
-        new(origin, destination).google_directions_distance
-      end
-    end
-
-    private_class_method :new
-
-    def initialize(origin, destination)
+    # Google Directions APIを利用して距離を計算
+    # @param [Groute::LatLng] origin
+    # @param [Groute::LatLng] destination
+    # @raise [Groute::GoogleDirectionsDistanceCalculator::ApiStatusNotOkError]
+    # @return [Groute::Distance]
+    def distance(origin, destination)
       @origin = origin
       @destination = destination
-    end
-
-    # Google Directions APIを利用して距離を計算
-    # @return [Groute::Distance]
-    def google_directions_distance
       raise ApiStatusNotOkError, api_response_status if api_response_status != SUCCESS_API_RESPONSE_STATUS
 
       Groute::Distance.new(api_response_distance_value)
