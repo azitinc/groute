@@ -12,7 +12,7 @@ module Groute
     class << self
       # @param [Groute::LatLng] origin
       # @param [Groute::LatLng] destination
-      # @return [Groute::StraitDistance]
+      # @return [Groute::Distance]
       def call(origin, destination)
         new(origin, destination).strait_distance
       end
