@@ -5,8 +5,14 @@ require 'groute/lat_lng'
 require 'groute/distance'
 require 'groute/strait_distance_calculator'
 require 'groute/route'
+require 'groute/config'
 
 module Groute
-  class Error < StandardError; end
-  # Your code goes here...
+  def self.config
+    @config ||= Groute::Config.new
+  end
+
+  def self.configure(&_block)
+    yield(config) if block_given?
+  end
 end

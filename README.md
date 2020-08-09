@@ -20,7 +20,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Configure
+
+```ruby
+Groute.configure do |conf|
+  conf.google_map_api_key = "<YOUR GOOGLE MAP API KEY HERE>"
+end
+```
 
 ## Development
 
