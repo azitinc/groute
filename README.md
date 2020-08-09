@@ -36,8 +36,8 @@ end
 
 ```ruby
 shibuya = Groute::LatLng.new(35.658034, 139.701636)
-roppoingi = Groute::LatLng.new(35.662725, 139.731216)
-Groute::StraitDistanceCalculator.new.distance(shibuya, roppoingi)
+roppongi = Groute::LatLng.new(35.662725, 139.731216)
+Groute::StraitDistanceCalculator.new.distance(shibuya, roppongi)
 # => Groute::Distance(2728)
 ```
 
@@ -47,7 +47,7 @@ Google Directions APIを利用して、移動距離をメートルで計算し�
 
 ```ruby
 shibuya = Groute::LatLng.new(35.658034, 139.701636)
-roppoingi = Groute::LatLng.new(35.662725, 139.731216)
+roppongi = Groute::LatLng.new(35.662725, 139.731216)
 Groute::GoogleDirectionsDistanceCalculator.new.distance(shibuya, roppongi)
 # => Groute::Distance(7197)
 ```
@@ -62,7 +62,7 @@ Google Distance Matrix APIを用いるこのの方法では、
 
 ```ruby
 shibuya = Groute::LatLng.new(35.658034, 139.701636)
-roppoingi = Groute::LatLng.new(35.662725, 139.731216)
+roppongi = Groute::LatLng.new(35.662725, 139.731216)
 Groute::GoogleDistanceMatrixDistanceCalculator.new.distance(shibuya, roppongi)
 # => Groute::Distance(2653)
 ```
