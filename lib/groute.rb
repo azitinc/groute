@@ -4,6 +4,8 @@ require 'groute/version'
 require 'groute/lat_lng'
 require 'groute/distance'
 require 'groute/strait_distance_calculator'
+require 'groute/google_directions_distance_calculator'
+require 'groute/google_directions_distance_calculator/api_status_not_ok_error'
 require 'groute/route'
 require 'groute/config'
 
