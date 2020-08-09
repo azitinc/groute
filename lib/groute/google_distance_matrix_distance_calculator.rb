@@ -7,6 +7,11 @@ module Groute
     EARTH_RADIUS_KILO_METER = 6378
     private_constant :EARTH_RADIUS_KILO_METER
 
+    # @param [Boolean] hexagonal 周辺6点に展開するかどうか
+    def initialize(hexagonal: false)
+      @hexagonal = hexagonal
+    end
+
     # Google Distance Matrix APIを利用して距離を計算
     # @param [Groute::LatLng] origin
     # @param [Groute::LatLng] destination
@@ -32,7 +37,7 @@ module Groute
 
     private
 
-    attr_reader :origin, :destination
+    attr_reader :hexagonal, :origin, :destination
 
     # @return [GoogleDistanceMatrix::Matrix]
     def google_distance_matrix
@@ -51,6 +56,8 @@ module Groute
 
     def fill_distance_matrix_origins
       google_distance_matrix.origins << origin_matrix_place
+      return unless hexagonal
+
       origin_hexagonal_positions.each do |p|
         google_distance_matrix.origins << p
       end
@@ -58,6 +65,8 @@ module Groute
 
     def fill_distance_matrix_destinations
       google_distance_matrix.destinations << destination_matrix_place
+      return unless hexagonal
+
       destination_hexagonal_positions.each do |p|
         google_distance_matrix.destinations << p
       end

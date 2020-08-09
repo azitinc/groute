@@ -56,9 +56,16 @@ Groute::GoogleDirectionsDistanceCalculator.new.distance(shibuya, roppongi)
 
 Google Distance Matrix API利用して、移動距離をメートルで計算します
 
-Google Distance Matrix APIを用いるこのの方法では、
-指定された出発地と目的地を周辺100mの6箇所の点と共にDistance Matrix APIにかけ、
-最短のルートの距離をかえします.
+#### hexagonalオプション
+
+インスタンス生成時に `hexagonal:` オプションを指定する事で、
+以下に説明する周辺6点に展開する手法を利用するかどうかの切りかえが可能です。
+
+`hexagonal: `オプションのデフォルト値は `false` です.
+
+##### hexagonal: falseの場合
+
+6点に展開する事なく、指定された目的地と出発地の距離をDistance Matrix APIで計算します
 
 ```ruby
 shibuya = Groute::LatLng.new(35.658034, 139.701636)
@@ -67,12 +74,24 @@ Groute::GoogleDistanceMatrixDistanceCalculator.new.distance(shibuya, roppongi)
 # => Groute::Distance(2653)
 ```
 
-#### この手法のメリット
+##### hexagonal: trueの場合
+
+指定された出発地と目的地を周辺100mの6箇所の点と共にDistance Matrix APIにかけ、
+最短のルートの距離をかえします.
+
+```ruby
+shibuya = Groute::LatLng.new(35.658034, 139.701636)
+roppongi = Groute::LatLng.new(35.662725, 139.731216)
+Groute::GoogleDistanceMatrixDistanceCalculator.new(hexagonal: true).distance(shibuya, roppongi)
+# => Groute::Distance(2653)
+```
+
+###### この手法のメリット
 
 この手法は、誤って出発地及び目的地が高速道路上であると判定され、
 長大なルートが利用されてしまう危険性にたいする部分的な対処方法です。
 
-#### この手法のデメリット
+###### この手法のデメリット
 
 その一方で、Distance Matrix APIは、リクエストに指定した地点の組みあわせに比例してコストがかかるため
 コストは他の手法に対して高くなるため、利用は慎重にこれ以外の手法で要求が満せない時にのみ利用してください。
