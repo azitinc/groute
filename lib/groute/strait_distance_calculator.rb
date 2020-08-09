@@ -9,25 +9,13 @@ module Groute
     EARTH_POLAR_RADIUS_METER = 6_356_752.314140
     private_constant :EARTH_EQUATORIAL_RADIUS_METER, :EARTH_POLAR_RADIUS_METER
 
-    class << self
-      # @param [Groute::LatLng] origin
-      # @param [Groute::LatLng] destination
-      # @return [Groute::Distance]
-      def call(origin, destination)
-        new(origin, destination).strait_distance
-      end
-    end
-
-    private_class_method :new
-
-    def initialize(origin, destination)
+    # ヒュベニの公式にもとづいて距離をもとめる
+    # @param [Groute::LatLng] origin
+    # @param [Groute::LatLng] destination
+    # @return [Groute::Distance]
+    def distance(origin, destination)
       @origin = origin
       @destination = destination
-    end
-
-    # ヒュベニの公式にもとづいて距離をもとめる
-    # @return [Groute::Distance]
-    def strait_distance
       meter = Math.sqrt(
         (latitude_radian_difference * meridian_radius_curvature)**2 +
           (longitude_radian_difference * prime_vertical_radius * Math.cos(latitude_radian_average))**2
