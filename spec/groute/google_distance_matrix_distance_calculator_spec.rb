@@ -37,7 +37,7 @@ RSpec.describe Groute::GoogleDistanceMatrixDistanceCalculator do
 
     it 'Groute::Distanceの距離をメートル単位で返す' do
       expect(Groute::GoogleDistanceMatrixDistanceCalculator.new.distance(shibuya_latlng, roppongi_latlng)).to satisfy do |d|
-        d.distance >= 2000 && d.distance <= 3000
+        d.value >= 2000 && d.value <= 3000
       end
     end
 

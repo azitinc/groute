@@ -7,13 +7,13 @@ RSpec.describe Groute::Distance do
     end
   end
 
-  describe 'attr_reader #distance' do
+  describe 'attr_reader #value' do
     it 'インスタンス生成時に35.0をわたしておくと、それがそのまま手にはいる' do
-      expect(Groute::Distance.new(35.0).distance).to eq 35.0
+      expect(Groute::Distance.new(35.0).value).to eq 35.0
     end
   end
 
-  describe '==はdistanceとクラスが同じかどうかを比較する' do
+  describe '==はvalueとクラスが同じかどうかを比較する' do
     it 'distanceが35.0同士ならばtrueとなる' do
       expect(Groute::Distance.new(35.0) == Groute::Distance.new(35.0)).to be true
     end
@@ -23,7 +23,7 @@ RSpec.describe Groute::Distance do
     end
   end
 
-  describe 'eql?はdistanceとクラスが同じかどうかを比較する' do
+  describe 'eql?はvalueとクラスが同じかどうかを比較する' do
     it 'distanceが35.0同士ならばtrueとなる' do
       expect(Groute::Distance.new(35.0).eql?(Groute::Distance.new(35.0))).to be true
     end

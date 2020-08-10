@@ -4,15 +4,15 @@ module Groute
   # 距離を表現するValue Object、単位はメートルとする
   class Distance
     # @return [Float]
-    attr_reader :distance
+    attr_reader :value
 
-    # @param [Float] distance
-    def initialize(distance)
-      @distance = distance
+    # @param [Float] value 距離(メートル)
+    def initialize(value)
+      @value = value
     end
 
     def ==(other)
-      self.class == other.class && distance == other.distance
+      self.class == other.class && value == other.value
     end
 
     alias eql? ==

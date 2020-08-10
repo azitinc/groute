@@ -16,7 +16,7 @@ RSpec.describe Groute::StraitDistanceCalculator do
 
     it 'Groute::Distanceの距離をメートル単位で返す' do
       expect(Groute::StraitDistanceCalculator.new.distance(shibuya, roppongi)).to satisfy do |d|
-        d.distance >= 2000 && d.distance <= 3000
+        d.value >= 2000 && d.value <= 3000
       end
     end
   end

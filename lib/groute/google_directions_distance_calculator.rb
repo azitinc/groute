@@ -12,17 +12,20 @@ module Groute
     SUCCESS_API_RESPONSE_STATUS = "OK"
     private_constant :ENDPOINT_URL_STRING, :SUCCESS_API_RESPONSE_STATUS
 
-    # Google Directions APIを利用して距離を計算
+    # Google Directions APIを利用してルートを計算
     # @param [Groute::LatLng] origin
     # @param [Groute::LatLng] destination
     # @raise [Groute::GoogleDirectionsDistanceCalculator::ApiStatusNotOkError]
-    # @return [Groute::Distance]
-    def distance(origin, destination)
+    # @return [Groute::Route]
+    def route(origin, destination)
       @origin = origin
       @destination = destination
       raise ApiStatusNotOkError, api_response_status if api_response_status != SUCCESS_API_RESPONSE_STATUS
 
-      Groute::Distance.new(api_response_distance_value)
+      Groute::Route.new(
+        api_response_duration_minutes,
+        Groute::Distance.new(api_response_distance_meter)
+      )
     end
 
     private
@@ -38,9 +41,21 @@ module Groute
       api_response_json["status"]
     end
 
-    # @return [Integer] メートル単位の距離
-    def api_response_distance_value
+    # @return [Integer, nil] メートル単位の距離
+    def api_response_distance_meter
       api_response_json.dig("routes", 0, "legs")&.last&.dig("distance", "value")
+    end
+
+    # @return [Float, nil] 移動時間の分
+    def api_response_duration_minutes
+      return nil if api_response_duration_seconds.nil?
+
+      api_response_duration_seconds / 60.0
+    end
+
+    # @return [Float, nil] 移動時間の秒
+    def api_response_duration_seconds
+      api_response_json.dig("routes", 0, "legs")&.last&.dig("duration", "value")
     end
 
     def raw_response
