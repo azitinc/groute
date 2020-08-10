@@ -54,7 +54,7 @@ Groute::GoogleDirectionsDistanceCalculator.new.route(shibuya, roppongi)
 
 ### Google Distance Matrix API
 
-Google Distance Matrix API利用して、移動距離をメートルで計算します
+Google Distance Matrix API利用して、ルートを計算します
 
 #### hexagonalオプション
 
@@ -70,8 +70,8 @@ Google Distance Matrix API利用して、移動距離をメートルで計算し
 ```ruby
 shibuya = Groute::LatLng.new(35.658034, 139.701636)
 roppongi = Groute::LatLng.new(35.662725, 139.731216)
-Groute::GoogleDistanceMatrixDistanceCalculator.new.distance(shibuya, roppongi)
-# => Groute::Distance(2653)
+Groute::GoogleDistanceMatrixDistanceCalculator.new.route(shibuya, roppongi)
+# => Groute::Route(5, Groute::Distance(2653))
 ```
 
 ##### hexagonal: trueの場合
@@ -82,8 +82,8 @@ Groute::GoogleDistanceMatrixDistanceCalculator.new.distance(shibuya, roppongi)
 ```ruby
 shibuya = Groute::LatLng.new(35.658034, 139.701636)
 roppongi = Groute::LatLng.new(35.662725, 139.731216)
-Groute::GoogleDistanceMatrixDistanceCalculator.new(hexagonal: true).distance(shibuya, roppongi)
-# => Groute::Distance(2653)
+Groute::GoogleDistanceMatrixDistanceCalculator.new(hexagonal: true).route(shibuya, roppongi)
+# => Groute::Route(5, Groute::Distance(2653))
 ```
 
 ###### この手法のメリット

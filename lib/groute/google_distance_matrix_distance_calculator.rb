@@ -12,11 +12,11 @@ module Groute
       @hexagonal = hexagonal
     end
 
-    # Google Distance Matrix APIを利用して距離を計算
+    # Google Distance Matrix APIを利用してルートを計算
     # @param [Groute::LatLng] origin
     # @param [Groute::LatLng] destination
-    # @return [Groute::Distance]
-    def distance(origin, destination)
+    # @return [Groute::Route]
+    def route(origin, destination)
       @origin = origin
       @destination = destination
 
@@ -32,7 +32,10 @@ module Groute
 
       minimum_distance_route = google_distance_matrix.data.flatten.min { |r1, r2| r1.distance_in_meters <=> r2.distance_in_meters }
 
-      Groute::Distance.new(minimum_distance_route.distance_in_meters)
+      Groute::Route.new(
+        minimum_distance_route.duration_in_seconds / 60.0,
+        Groute::Distance.new(minimum_distance_route.distance_in_meters)
+      )
     end
 
     private
