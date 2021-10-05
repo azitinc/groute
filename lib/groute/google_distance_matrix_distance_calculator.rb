@@ -33,8 +33,8 @@ module Groute
       minimum_distance_route = google_distance_matrix.data.flatten.min { |r1, r2| r1.distance_in_meters <=> r2.distance_in_meters }
 
       Groute::Route.new(
-        minimum_distance_route.duration_in_seconds / 60.0,
-        Groute::Meter.new(minimum_distance_route.distance_in_meters)
+        duration: Groute::Minutes.new(minimum_distance_route.duration_in_seconds / 60.0),
+        distance: Groute::Meter.new(minimum_distance_route.distance_in_meters)
       )
     end
 

@@ -23,8 +23,8 @@ module Groute
       raise ApiStatusNotOkError, api_response_status if api_response_status != SUCCESS_API_RESPONSE_STATUS
 
       Groute::Route.new(
-        api_response_duration_minutes,
-        Groute::Meter.new(api_response_distance_meter)
+        duration: Groute::Minutes.new(api_response_duration_minutes),
+        distance: Groute::Meter.new(api_response_distance_meter)
       )
     end
 

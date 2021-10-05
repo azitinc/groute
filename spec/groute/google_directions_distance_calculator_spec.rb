@@ -22,7 +22,7 @@ RSpec.describe Groute::GoogleDirectionsDistanceCalculator do
 
     it '時間を分単位で返す' do
       expect(Groute::GoogleDirectionsDistanceCalculator.new.route(shibuya_latlng, roppongi_latlng)).to satisfy do |r|
-        r.minutes >= 10 && r.minutes <= 20
+        r.duration.value >= 10 && r.duration.value <= 20
       end
     end
 
