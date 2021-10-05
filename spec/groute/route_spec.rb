@@ -2,10 +2,16 @@
 
 RSpec.describe Groute::Route do
   describe 'new' do
-    it 'duration, distanceでインスタンス生成' do
+    it 'duration, distance, sub_routesでインスタンス生成' do
       expect(Groute::Route.new(
                duration: Groute::Minutes.new(35.0),
-               distance: Groute::Meter.new(3)
+               distance: Groute::Meter.new(3),
+               sub_routes: [
+                 Groute::SubRoute.new(
+                   duration: Groute::Minutes.new(35.0),
+                   distance: Groute::Meter.new(3)
+                 ),
+               ]
              )).not_to be nil
     end
   end
@@ -25,6 +31,27 @@ RSpec.describe Groute::Route do
         duration: Groute::Minutes.new(5.0),
         distance: Groute::Meter.new(3)
       ).distance).to eq Groute::Meter.new(3)
+    end
+  end
+
+  describe 'reader #sub_routes' do
+    it '生成時に、わたしたsub_routesがそのまま手にはいる' do
+      inst = Groute::Route.new(
+        duration: Groute::Minutes.new(5.0),
+        distance: Groute::Meter.new(3),
+        sub_routes: [
+          Groute::SubRoute.new(
+            duration: Groute::Minutes.new(35.0),
+            distance: Groute::Meter.new(3)
+          ),
+        ]
+      )
+      expect(inst.sub_routes).to eq [
+        Groute::SubRoute.new(
+          duration: Groute::Minutes.new(35.0),
+          distance: Groute::Meter.new(3)
+        ),
+      ]
     end
   end
 
