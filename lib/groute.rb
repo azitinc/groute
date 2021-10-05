@@ -3,6 +3,7 @@
 require 'groute/version'
 require 'groute/lat_lng'
 require 'groute/meter'
+require 'groute/minutes'
 require 'groute/strait_distance_calculator'
 require 'groute/google_directions_distance_calculator'
 require 'groute/google_directions_distance_calculator/api_status_not_ok_error'
