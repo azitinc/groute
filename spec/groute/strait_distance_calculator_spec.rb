@@ -11,11 +11,19 @@ RSpec.describe Groute::StraitDistanceCalculator do
     end
 
     it 'Groute::Distanceのインスタンスを返す' do
-      expect(Groute::StraitDistanceCalculator.new.distance(shibuya, roppongi)).to be_an_instance_of(Groute::Distance)
+      result = Groute::StraitDistanceCalculator.new.distance(
+        from: shibuya,
+        to: roppongi
+      )
+      expect(result).to be_an_instance_of(Groute::Distance)
     end
 
     it 'Groute::Distanceの距離をメートル単位で返す' do
-      expect(Groute::StraitDistanceCalculator.new.distance(shibuya, roppongi)).to satisfy do |d|
+      result = Groute::StraitDistanceCalculator.new.distance(
+        from: shibuya,
+        to: roppongi
+      )
+      expect(result).to satisfy do |d|
         d.value >= 2000 && d.value <= 3000
       end
     end

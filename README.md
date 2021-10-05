@@ -37,7 +37,10 @@ end
 ```ruby
 shibuya = Groute::LatLng.new(35.658034, 139.701636)
 roppongi = Groute::LatLng.new(35.662725, 139.731216)
-Groute::StraitDistanceCalculator.new.distance(shibuya, roppongi)
+Groute::StraitDistanceCalculator.new.distance(
+  from: shibuya,
+  to: roppongi
+)
 # => Groute::Distance(2728)
 ```
 

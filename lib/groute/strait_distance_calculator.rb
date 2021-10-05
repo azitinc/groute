@@ -10,12 +10,12 @@ module Groute
     private_constant :EARTH_EQUATORIAL_RADIUS_METER, :EARTH_POLAR_RADIUS_METER
 
     # ヒュベニの公式にもとづいて距離をもとめる
-    # @param [Groute::LatLng] origin
-    # @param [Groute::LatLng] destination
+    # @param [Groute::LatLng] from
+    # @param [Groute::LatLng] to
     # @return [Groute::Distance]
-    def distance(origin, destination)
-      @origin = origin
-      @destination = destination
+    def distance(from:, to:)
+      @from = from
+      @to = to
       meter = Math.sqrt(
         (latitude_radian_difference * meridian_radius_curvature)**2 +
           (longitude_radian_difference * prime_vertical_radius * Math.cos(latitude_radian_average))**2
@@ -25,18 +25,18 @@ module Groute
 
     private
 
-    attr_reader :origin, :destination
+    attr_reader :from, :to
 
     def latitude_radian_difference
-      origin.latitude_radian - destination.latitude_radian
+      from.latitude_radian - to.latitude_radian
     end
 
     def longitude_radian_difference
-      origin.longitude_radian - destination.longitude_radian
+      from.longitude_radian - to.longitude_radian
     end
 
     def latitude_radian_average
-      (origin.latitude_radian + destination.latitude_radian) / 2.0
+      (from.latitude_radian + to.latitude_radian) / 2.0
     end
 
     def earth_eccentricity
