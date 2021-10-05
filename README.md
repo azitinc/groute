@@ -51,7 +51,7 @@ Google Directions APIを利用して、ルートを計算します
 ```ruby
 shibuya = Groute::LatLng.new(35.658034, 139.701636)
 roppongi = Groute::LatLng.new(35.662725, 139.731216)
-Groute::GoogleDirectionsRouteCalculator.new.route(shibuya, roppongi)
+Groute::GoogleDirectionsRouteCalculator.new.route(from: shibuya, to: roppongi)
 # => Groute::Route(@duration=Groute::Minutes(17), @distance=Groute::Meter(7197))
 ```
 
@@ -73,7 +73,7 @@ Google Distance Matrix API利用して、ルートを計算します
 ```ruby
 shibuya = Groute::LatLng.new(35.658034, 139.701636)
 roppongi = Groute::LatLng.new(35.662725, 139.731216)
-Groute::GoogleDistanceMatrixRouteCalculator.new.route(shibuya, roppongi)
+Groute::GoogleDistanceMatrixRouteCalculator.new.route(from: shibuya, to: roppongi)
 # => Groute::Route(@duration=Groute::Minutes(5), @distance=Groute::Meter(2653))
 ```
 
@@ -85,7 +85,7 @@ Groute::GoogleDistanceMatrixRouteCalculator.new.route(shibuya, roppongi)
 ```ruby
 shibuya = Groute::LatLng.new(35.658034, 139.701636)
 roppongi = Groute::LatLng.new(35.662725, 139.731216)
-Groute::GoogleDistanceMatrixRouteCalculator.new(hexagonal: true).route(shibuya, roppongi)
+Groute::GoogleDistanceMatrixRouteCalculator.new(hexagonal: true).route(from: shibuya, to: roppongi)
 # => Groute::Route(@duration=Groute::Minutes(5), Groute::Meter(2653))
 ```
 

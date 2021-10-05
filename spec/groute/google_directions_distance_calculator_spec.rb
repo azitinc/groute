@@ -12,22 +12,30 @@ RSpec.describe Groute::GoogleDirectionsRouteCalculator do
     end
 
     it 'LatLngを二つ取る' do
-      expect(Groute::GoogleDirectionsRouteCalculator.new.route(shibuya_latlng, roppongi_latlng)).not_to be nil
+      expect(Groute::GoogleDirectionsRouteCalculator.new.route(from: shibuya_latlng, to: roppongi_latlng)).not_to be nil
     end
 
     it 'Groute::Routeのインスタンスを返す' do
-      result = Groute::GoogleDirectionsRouteCalculator.new.route(shibuya_latlng, roppongi_latlng)
+      result = Groute::GoogleDirectionsRouteCalculator.new.route(from: shibuya_latlng, to: roppongi_latlng)
       expect(result).to be_an_instance_of(Groute::Route)
     end
 
     it '時間を分単位で返す' do
-      expect(Groute::GoogleDirectionsRouteCalculator.new.route(shibuya_latlng, roppongi_latlng)).to satisfy do |r|
+      inst = Groute::GoogleDirectionsRouteCalculator.new.route(
+        from: shibuya_latlng,
+        to: roppongi_latlng
+      )
+      expect(inst).to satisfy do |r|
         r.duration.value >= 10 && r.duration.value <= 20
       end
     end
 
     it '距離をメートル単位で返す' do
-      expect(Groute::GoogleDirectionsRouteCalculator.new.route(shibuya_latlng, roppongi_latlng)).to satisfy do |r|
+      inst = Groute::GoogleDirectionsRouteCalculator.new.route(
+        from: shibuya_latlng,
+        to: roppongi_latlng
+      )
+      expect(inst).to satisfy do |r|
         r.distance.value >= 2000 && r.distance.value <= 3000
       end
     end
@@ -40,7 +48,7 @@ RSpec.describe Groute::GoogleDirectionsRouteCalculator do
                                                       "status" => "NOT_FOUND",
                                                     })
         expect do
-          Groute::GoogleDirectionsRouteCalculator.new.route(shibuya_latlng, roppongi_latlng)
+          Groute::GoogleDirectionsRouteCalculator.new.route(from: shibuya_latlng, to: roppongi_latlng)
         end.to raise_error(
           an_instance_of(
             Groute::GoogleDirectionsRouteCalculator::ApiStatusNotOkError
@@ -55,7 +63,7 @@ RSpec.describe Groute::GoogleDirectionsRouteCalculator do
                                                       "status" => "OK",
                                                     })
         expect do
-          Groute::GoogleDirectionsRouteCalculator.new.route(shibuya_latlng, roppongi_latlng)
+          Groute::GoogleDirectionsRouteCalculator.new.route(from: shibuya_latlng, to: roppongi_latlng)
         end.not_to raise_error
       end
     end

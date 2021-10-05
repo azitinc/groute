@@ -13,13 +13,13 @@ module Groute
     private_constant :ENDPOINT_URL_STRING, :SUCCESS_API_RESPONSE_STATUS
 
     # Google Directions APIを利用してルートを計算
-    # @param [Groute::LatLng] origin
-    # @param [Groute::LatLng] destination
+    # @param [Groute::LatLng] from
+    # @param [Groute::LatLng] to
     # @raise [Groute::GoogleDirectionsRouteCalculator::ApiStatusNotOkError]
     # @return [Groute::Route]
-    def route(origin, destination)
-      @origin = origin
-      @destination = destination
+    def route(from:, to:)
+      @from = from
+      @to = to
       raise ApiStatusNotOkError, api_response_status if api_response_status != SUCCESS_API_RESPONSE_STATUS
 
       Groute::Route.new(
@@ -30,7 +30,7 @@ module Groute
 
     private
 
-    attr_reader :origin, :destination
+    attr_reader :from, :to
 
     # @return [JSON] APIレスポンスをパースしたJSON
     def api_response_json
@@ -66,8 +66,8 @@ module Groute
     # @return [URI]
     def request_uri
       parameters = {
-        origin: encode_latlng_to_query_string(origin),
-        destination: encode_latlng_to_query_string(destination),
+        origin: encode_latlng_to_query_string(from),
+        destination: encode_latlng_to_query_string(to),
         mode: travel_mode,
         alternative: request_alternative,
         language: language_code,

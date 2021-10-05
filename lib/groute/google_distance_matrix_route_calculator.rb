@@ -13,12 +13,12 @@ module Groute
     end
 
     # Google Distance Matrix APIを利用してルートを計算
-    # @param [Groute::LatLng] origin
-    # @param [Groute::LatLng] destination
+    # @param [Groute::LatLng] from
+    # @param [Groute::LatLng] to
     # @return [Groute::Route]
-    def route(origin, destination)
-      @origin = origin
-      @destination = destination
+    def route(from:, to:)
+      @from = from
+      @to = to
 
       fill_distance_matrix_origins
       fill_distance_matrix_destinations
@@ -30,7 +30,9 @@ module Groute
         config.google_api_key = google_map_api_key
       end
 
-      minimum_distance_route = google_distance_matrix.data.flatten.min { |r1, r2| r1.distance_in_meters <=> r2.distance_in_meters }
+      minimum_distance_route = google_distance_matrix.data.flatten.min do |r1, r2|
+        r1.distance_in_meters <=> r2.distance_in_meters
+      end
 
       Groute::Route.new(
         duration: Groute::Minutes.new(minimum_distance_route.duration_in_seconds / 60.0),
@@ -40,7 +42,7 @@ module Groute
 
     private
 
-    attr_reader :hexagonal, :origin, :destination
+    attr_reader :hexagonal, :from, :to
 
     # @return [GoogleDistanceMatrix::Matrix]
     def google_distance_matrix
@@ -48,29 +50,29 @@ module Groute
     end
 
     # @return [GoogleDistanceMatrix::Place]
-    def origin_matrix_place
-      GoogleDistanceMatrix::Place.new lng: origin.longitude, lat: origin.latitude
+    def from_matrix_place
+      GoogleDistanceMatrix::Place.new lng: from.longitude, lat: from.latitude
     end
 
     # @return [GoogleDistanceMatrix::Place]
-    def destination_matrix_place
-      GoogleDistanceMatrix::Place.new lng: destination.longitude, lat: destination.latitude
+    def to_matrix_place
+      GoogleDistanceMatrix::Place.new lng: to.longitude, lat: to.latitude
     end
 
     def fill_distance_matrix_origins
-      google_distance_matrix.origins << origin_matrix_place
+      google_distance_matrix.origins << from_matrix_place
       return unless hexagonal
 
-      origin_hexagonal_positions.each do |p|
+      from_hexagonal_positions.each do |p|
         google_distance_matrix.origins << p
       end
     end
 
     def fill_distance_matrix_destinations
-      google_distance_matrix.destinations << destination_matrix_place
+      google_distance_matrix.destinations << to_matrix_place
       return unless hexagonal
 
-      destination_hexagonal_positions.each do |p|
+      to_hexagonal_positions.each do |p|
         google_distance_matrix.destinations << p
       end
     end
@@ -82,14 +84,14 @@ module Groute
 
     # 出発地の周辺6点
     # @return [Array<GoogleDistanceMatrix::Place>]
-    def origin_hexagonal_positions
-      @origin_hexagonal_positions ||= hexagonal_positions(origin)
+    def from_hexagonal_positions
+      @from_hexagonal_positions ||= hexagonal_positions(from)
     end
 
     # 目的地の周辺6点
     # @return [Array<GoogleDistanceMatrix::Place>]
-    def destination_hexagonal_positions
-      @destination_hexagonal_positions ||= hexagonal_positions(destination)
+    def to_hexagonal_positions
+      @to_hexagonal_positions ||= hexagonal_positions(to)
     end
 
     # 与えられた地点の周辺6箇所の地点を返す
