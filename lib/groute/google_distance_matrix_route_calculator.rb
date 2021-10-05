@@ -3,7 +3,7 @@ require 'google_distance_matrix'
 
 module Groute
   # 2地点間の距離をGoogle Distance Matrix APIを利用して計算する
-  class GoogleDistanceMatrixDistanceCalculator
+  class GoogleDistanceMatrixRouteCalculator
     EARTH_RADIUS_KILO_METER = 6378
     private_constant :EARTH_RADIUS_KILO_METER
 

@@ -7,7 +7,7 @@ require 'json'
 module Groute
   # 2地点間の距離をGoogleDirections APIを利用して計算する
   # https://developers.google.com/maps/documentation/directions/overview
-  class GoogleDirectionsDistanceCalculator
+  class GoogleDirectionsRouteCalculator
     ENDPOINT_URL_STRING = "https://maps.googleapis.com/maps/api/directions/json"
     SUCCESS_API_RESPONSE_STATUS = "OK"
     private_constant :ENDPOINT_URL_STRING, :SUCCESS_API_RESPONSE_STATUS
@@ -15,7 +15,7 @@ module Groute
     # Google Directions APIを利用してルートを計算
     # @param [Groute::LatLng] origin
     # @param [Groute::LatLng] destination
-    # @raise [Groute::GoogleDirectionsDistanceCalculator::ApiStatusNotOkError]
+    # @raise [Groute::GoogleDirectionsRouteCalculator::ApiStatusNotOkError]
     # @return [Groute::Route]
     def route(origin, destination)
       @origin = origin

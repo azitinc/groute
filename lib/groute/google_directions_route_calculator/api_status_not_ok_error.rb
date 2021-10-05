@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Groute
-  class GoogleDirectionsDistanceCalculator
+  class GoogleDirectionsRouteCalculator
     # Google Directions APIをたたいた結果の `status` が `OK` ではなかった時に発生するエラー
     class ApiStatusNotOkError < StandardError
       # @return [String] Google Direction APIから返ってきたステータスの文字列

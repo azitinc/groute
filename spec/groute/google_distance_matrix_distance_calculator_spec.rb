@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-RSpec.describe Groute::GoogleDistanceMatrixDistanceCalculator do
+RSpec.describe Groute::GoogleDistanceMatrixRouteCalculator do
   describe 'new' do
     describe 'hexagonal:というオプションをわたせる' do
       it 'hexagonal: trueというオプションをわたせる' do
-        expect(Groute::GoogleDistanceMatrixDistanceCalculator.new(hexagonal: true)).not_to be nil
+        expect(Groute::GoogleDistanceMatrixRouteCalculator.new(hexagonal: true)).not_to be nil
       end
 
       it 'hexagonal: falseというオプションをわたせる' do
-        expect(Groute::GoogleDistanceMatrixDistanceCalculator.new(hexagonal: false)).not_to be nil
+        expect(Groute::GoogleDistanceMatrixRouteCalculator.new(hexagonal: false)).not_to be nil
       end
 
       it 'hexagonalを指定しなくても良い' do
-        expect(Groute::GoogleDistanceMatrixDistanceCalculator.new).not_to be nil
+        expect(Groute::GoogleDistanceMatrixRouteCalculator.new).not_to be nil
       end
     end
   end
@@ -28,37 +28,37 @@ RSpec.describe Groute::GoogleDistanceMatrixDistanceCalculator do
     end
 
     it 'LatLngを二つ取る' do
-      expect(Groute::GoogleDistanceMatrixDistanceCalculator.new.route(shibuya_latlng, roppongi_latlng)).not_to be nil
+      expect(Groute::GoogleDistanceMatrixRouteCalculator.new.route(shibuya_latlng, roppongi_latlng)).not_to be nil
     end
 
     it 'Groute::Routeのインスタンスを返す' do
-      result = Groute::GoogleDistanceMatrixDistanceCalculator.new.route(shibuya_latlng, roppongi_latlng)
+      result = Groute::GoogleDistanceMatrixRouteCalculator.new.route(shibuya_latlng, roppongi_latlng)
       expect(result).to be_an_instance_of(Groute::Route)
     end
 
     it 'Groute::Routeの距離をメートル単位で返す' do
-      expect(Groute::GoogleDistanceMatrixDistanceCalculator.new.route(shibuya_latlng, roppongi_latlng)).to satisfy do |r|
+      expect(Groute::GoogleDistanceMatrixRouteCalculator.new.route(shibuya_latlng, roppongi_latlng)).to satisfy do |r|
         r.distance.value >= 2000 && r.distance.value <= 3000
       end
     end
 
     describe 'hexagonalオプション' do
       it 'hexagonal: trueになっていた時には、6点に展開される' do
-        instance = Groute::GoogleDistanceMatrixDistanceCalculator.new(hexagonal: true)
+        instance = Groute::GoogleDistanceMatrixRouteCalculator.new(hexagonal: true)
         allow(instance).to receive(:origin_hexagonal_positions).and_return([])
         instance.route(shibuya_latlng, roppongi_latlng)
         expect(instance).to have_received(:origin_hexagonal_positions).once
       end
 
       it 'hexagonal: falseになっていた時には、6点に展開されない' do
-        instance = Groute::GoogleDistanceMatrixDistanceCalculator.new(hexagonal: false)
+        instance = Groute::GoogleDistanceMatrixRouteCalculator.new(hexagonal: false)
         allow(instance).to receive(:origin_hexagonal_positions).and_return([])
         instance.route(shibuya_latlng, roppongi_latlng)
         expect(instance).not_to have_received(:origin_hexagonal_positions)
       end
 
       it 'hexagonalオプションを指定しなかった時は、6点に展開されない' do
-        instance = Groute::GoogleDistanceMatrixDistanceCalculator.new
+        instance = Groute::GoogleDistanceMatrixRouteCalculator.new
         allow(instance).to receive(:origin_hexagonal_positions).and_return([])
         instance.route(shibuya_latlng, roppongi_latlng)
         expect(instance).not_to have_received(:origin_hexagonal_positions)

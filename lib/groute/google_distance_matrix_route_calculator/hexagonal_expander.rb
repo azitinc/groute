@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Groute
-  class GoogleDistanceMatrixDistanceCalculator
+  class GoogleDistanceMatrixRouteCalculator
     # 与えられた地点を周辺の6点に展開する
     class HexagonalExpander
       # @param [Groute::LatLng] latlng
