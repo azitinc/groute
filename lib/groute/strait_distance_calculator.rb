@@ -12,7 +12,7 @@ module Groute
     # ヒュベニの公式にもとづいて距離をもとめる
     # @param [Groute::LatLng] from
     # @param [Groute::LatLng] to
-    # @return [Groute::Distance]
+    # @return [Groute::Meter]
     def distance(from:, to:)
       @from = from
       @to = to
@@ -20,7 +20,7 @@ module Groute
         (latitude_radian_difference * meridian_radius_curvature)**2 +
           (longitude_radian_difference * prime_vertical_radius * Math.cos(latitude_radian_average))**2
       )
-      Groute::Distance.new(meter)
+      Groute::Meter.new(meter)
     end
 
     private

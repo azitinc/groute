@@ -24,7 +24,7 @@ module Groute
 
       Groute::Route.new(
         api_response_duration_minutes,
-        Groute::Distance.new(api_response_distance_meter)
+        Groute::Meter.new(api_response_distance_meter)
       )
     end
 

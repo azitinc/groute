@@ -5,11 +5,11 @@ module Groute
   class Route
     # @return [Float] 移動時間(分)
     attr_reader :minutes
-    # @return [Groute::Distance] 距離
+    # @return [Groute::Meter] 距離
     attr_reader :distance
 
     # @param [Float] minutes 移動時間 (分)
-    # @param [Groute::Distance] distance 距離
+    # @param [Groute::Meter] distance 距離
     def initialize(minutes, distance)
       @minutes = minutes
       @distance = distance

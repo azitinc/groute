@@ -2,11 +2,11 @@
 
 module Groute
   # 距離を表現するValue Object、単位はメートルとする
-  class Distance
+  class Meter
     # @return [Float]
     attr_reader :value
 
-    # @param [Float] value 距離(メートル)
+    # @param [Float] value
     def initialize(value)
       @value = value
     end

@@ -34,7 +34,7 @@ module Groute
 
       Groute::Route.new(
         minimum_distance_route.duration_in_seconds / 60.0,
-        Groute::Distance.new(minimum_distance_route.distance_in_meters)
+        Groute::Meter.new(minimum_distance_route.distance_in_meters)
       )
     end
 
